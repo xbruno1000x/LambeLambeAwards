@@ -1,0 +1,561 @@
+/* Estilos gerais para dispositivos móveis */
+@media (max-width: 768px) {
+    /* Ajustar o tamanho do header */
+    header h1 {
+        font-size: 2.5rem; /* Tamanho intermediário para tablets */
+    }
+
+    /* Ajustar o layout da navegação para ficar vertical no mobile */
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        margin: 10px 0;
+    }
+
+    /* Ajustar o tamanho do texto na hero section */
+    .hero h2 {
+        font-size: 1.8rem;
+        padding: 5px 10px;
+    }
+
+    /* Ajustar o container principal para ocupar melhor a tela no mobile */
+    .container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    /* Ajustar o formulário de login */
+    .login-container {
+        max-width: 90%;
+        margin: 30px auto;
+    }
+
+    /* Ajustar o formulário de votação */
+    .votacao-container {
+        max-width: 90%;
+        margin: 30px auto;
+    }
+
+    /* Botões de Admin e Voltar menores e mais ajustados */
+    .admin-button, .back-button {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+}
+
+/* Estilos para dispositivos muito pequenos, como smartphones */
+@media (max-width: 480px) {
+    /* Reduzir ainda mais o tamanho do texto no header */
+    header h1 {
+        font-size: 2rem; /* Redução para smartphones */
+    }
+
+    /* Reduzir tamanho do texto na hero section */
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Reduzir margens nos formulários */
+    .login-container, .votacao-container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    /* Ajustar ainda mais o tamanho dos botões */
+    .admin-button, .back-button {
+        font-size: 8px;
+    }
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Garantir que o rodapé fique no fim da página */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: 'Cinzel', serif;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #1a1a1a;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #d4af37;
+}
+
+header h1 {
+    color: #d4af37;
+    font-size: 3rem;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #d4af37;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #f0e68c;
+}
+
+/* Estilos da página inicial */
+.hero {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/View/fundo.jpeg') no-repeat center center/cover;
+}
+
+.hero h2 {
+    color: #fff;
+    font-size: 2.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border: 2px solid #d4af37;
+}
+
+/* Estilos do rodapé */
+footer {
+    background-color: #1a1a1a;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 3px solid #d4af37;
+    color: #d4af37;
+    margin-top: auto; /* Faz o rodapé ficar no fim da página */
+}
+
+/* Estilos adicionais para a página Sobre */
+.about h2 {
+    font-size: 2.5rem;
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+/* Estilos do formulário de login */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.login-container h2 {
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #d4af37;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    outline: none;
+    border-color: #f0e68c;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #f0e68c;
+    color: #1a1a1a;
+}
+
+.login-container p {
+    text-align: center;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.login-container p a {
+    color: #d4af37;
+    text-decoration: none;
+}
+
+.login-container p a:hover {
+    color: #f0e68c;
+}
+
+/* Estilos do formulário de votação */
+.votacao-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.votacao-container h2 {
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.votacao-container label {
+    display: block;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.votacao-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #d4af37;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.votacao-container input[type="text"]:focus {
+    outline: none;
+    border-color: #f0e68c;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #d4af37;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #f0e68c;
+}
+
+.votacao-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.votacao-container button:hover {
+    background-color: #f0e68c;
+    color: #1a1a1a;
+}
+
+.votacao-container p {
+    text-align: center;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.votacao-container p a {
+    color: #d4af37;
+    text-decoration: none;
+}
+
+.votacao-container p a:hover {
+    color: #f0e68c;
+}
+
+/* Novo estilo para a seção de votação */
+.votacao {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+.votacao h2 {
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.votacao-item {
+    margin-bottom: 20px;
+}
+
+.votacao-item h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.votacao-item label {
+    color: #fff;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.votacao-item select {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #d4af37;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.votacao-item select:focus {
+    outline: none;
+    border-color: #f0e68c;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f0e68c;
+    color: #1a1a1a;
+}
+
+.success {
+    color: green;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: red;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para o botão de Admin */
+.admin-button {
+    position: absolute;
+    top: 20px; /* Ajuste a posição conforme necessário */
+    right: 20px; /* Ajuste a posição conforme necessário */
+    padding: 5px 10px;
+    background-color: #000; /* Cor de fundo preta */
+    color: #fff; /* Cor do texto branca */
+    text-decoration: none;
+    border-radius: 12px; /* Bordas arredondadas */
+    font-size: 12px; /* Tamanho pequeno */
+    font-family: 'Cinzel', serif; /* Fonte */
+    border: 1px solid #fff; /* Borda branca */
+}
+
+.admin-button:hover {
+    background-color: #444; /* Efeito ao passar o mouse */
+    border-color: #ddd; /* Alterar cor da borda no hover */
+}
+
+/* Estilos para o botão de Voltar */
+.back-button {
+    position: absolute;
+    top: 20px; /* Ajuste a posição conforme necessário */
+    left: 20px; /* Alinhado à esquerda */
+    padding: 5px 10px;
+    background-color: #000; /* Cor de fundo preta */
+    color: #fff; /* Cor do texto branca */
+    text-decoration: none;
+    border-radius: 12px; /* Bordas arredondadas */
+    font-size: 12px; /* Tamanho pequeno */
+    font-family: 'Cinzel', serif; /* Fonte */
+    border: 1px solid #fff; /* Borda branca */
+}
+
+.back-button:hover {
+    background-color: #444; /* Efeito ao passar o mouse */
+    border-color: #ddd; /* Alterar cor da borda no hover */
+}
+
+/* Estilos para a tabela de indicados */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #d4af37;
+}
+
+table th {
+    background-color: #1a1a1a;
+    color: #d4af37;
+    font-size: 1.2rem;
+}
+
+table td {
+    background-color: #333;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+table tr:hover {
+    background-color: #444;
+}
+
+/* Estilos específicos para a página de indicados */
+.indicados h2, .indicados h3 {
+    color: #d4af37;
+    text-align: center;
+}
+
+.indicados h3 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+/* Ajustes gerais para margens e espaçamento */
+.indicados {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos da dashboard */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-menu {
+    width: 250px;
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-right: 5px solid #d4af37;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.admin-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-menu li {
+    margin-bottom: 20px;
+}
+
+.admin-menu a {
+    text-decoration: none;
+    color: #d4af37;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    border: 1px solid #d4af37;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-menu a:hover {
+    background-color: #d4af37;
+    color: #000;
+}
+
+/* Estilos da área de conteúdo principal */
+.admin-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #000;
+    color: #fff;
+}
+
+.admin-content h2 {
+    color: #d4af37;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.admin-content p {
+    font-size: 1.2rem;
+}
+
+.alert {
+    background-color: rgba(212, 175, 55, 0.8);
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}

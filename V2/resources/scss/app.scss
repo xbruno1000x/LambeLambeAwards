@@ -1,0 +1,502 @@
+// Variáveis de cores - Paleta Preto e Dourado
+$primary: #D4AF37; // Dourado
+$primary-dark: #B8860B;
+$primary-light: #FFD700;
+$secondary: #1a1a1a; // Preto
+$dark: #0d0d0d;
+$light: #f8f9fa;
+$white: #ffffff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-600: #6c757d;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+// Sobrescrever variáveis do Bootstrap
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "dark": $dark,
+  "light": $light,
+);
+
+$body-bg: $dark;
+$body-color: $light;
+
+$link-color: $primary;
+$link-hover-color: $primary-light;
+
+$navbar-dark-color: $light;
+$navbar-dark-hover-color: $primary;
+$navbar-dark-active-color: $primary;
+
+$card-bg: rgba(26, 26, 26, 0.9);
+$card-border-color: rgba($primary, 0.3);
+
+$btn-border-radius: 0;
+$btn-border-radius-lg: 0;
+$btn-border-radius-sm: 0;
+
+$input-bg: $secondary;
+$input-border-color: rgba($primary, 0.3);
+$input-color: $light;
+$input-focus-border-color: $primary;
+$input-focus-box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+
+// Importar Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// Estilos customizados
+body {
+  font-family: 'Cinzel', serif;
+  background: linear-gradient(135deg, $dark 0%, $secondary 50%, $dark 100%);
+  min-height: 100vh;
+}
+
+// Navbar
+.navbar {
+  background: rgba($dark, 0.95) !important;
+  border-bottom: 2px solid $primary;
+  backdrop-filter: blur(10px);
+  
+  .navbar-brand {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.5rem;
+    color: $primary !important;
+    text-shadow: 0 0 10px rgba($primary, 0.5);
+    
+    &:hover {
+      color: $primary-light !important;
+    }
+  }
+  
+  .nav-link {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    
+    &:hover, &.active {
+      color: $primary !important;
+    }
+  }
+}
+
+// Hero Section
+.hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba($primary, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 4rem;
+    color: $primary;
+    text-shadow: 0 0 30px rgba($primary, 0.5);
+    margin-bottom: 1rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    color: $gray-300;
+    margin-bottom: 2rem;
+  }
+}
+
+// Cards
+.card {
+  background: $card-bg;
+  border: 1px solid $card-border-color;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 0 20px rgba($primary, 0.3);
+    transform: translateY(-5px);
+  }
+  
+  .card-header {
+    background: rgba($primary, 0.1);
+    border-bottom: 1px solid rgba($primary, 0.3);
+    color: $primary;
+    font-weight: 600;
+  }
+  
+  .card-title {
+    color: $primary;
+  }
+}
+
+// Buttons
+.btn-primary {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  border: none;
+  color: $dark;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: linear-gradient(135deg, $primary-light 0%, $primary 100%);
+    color: $dark;
+    box-shadow: 0 0 20px rgba($primary, 0.5);
+  }
+}
+
+.btn-outline-primary {
+  border: 2px solid $primary;
+  color: $primary;
+  
+  &:hover {
+    background: $primary;
+    color: $dark;
+  }
+}
+
+.btn-dark {
+  background: $secondary;
+  border: 1px solid rgba($primary, 0.3);
+  
+  &:hover {
+    background: lighten($secondary, 10%);
+    border-color: $primary;
+  }
+}
+
+// Forms
+.form-control, .form-select {
+  background: $secondary;
+  border: 1px solid rgba($primary, 0.3);
+  color: $light;
+  
+  &:focus {
+    background: $secondary;
+    border-color: $primary;
+    color: $light;
+    box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+  }
+  
+  &::placeholder {
+    color: $gray-600;
+  }
+}
+
+// Section titles
+.section-title {
+  font-family: 'Cinzel Decorative', cursive;
+  color: $primary;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  
+  &::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, $primary, transparent);
+    margin: 1rem auto 0;
+  }
+}
+
+// Categoria Card
+.categoria-card {
+  margin-bottom: 2rem;
+  
+  .categoria-header {
+    background: linear-gradient(135deg, rgba($primary, 0.2) 0%, transparent 100%);
+    padding: 1.5rem;
+    border-bottom: 2px solid $primary;
+    
+    h3 {
+      color: $primary;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+  }
+  
+  .indicado-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba($primary, 0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba($primary, 0.1);
+    }
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .indicado-foto {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid $primary;
+      margin-right: 1rem;
+    }
+    
+    .indicado-nome {
+      flex: 1;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Vencedor Badge
+.vencedor-badge {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  color: $dark;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  i {
+    color: $dark;
+  }
+}
+
+// Footer
+.footer {
+  background: $dark;
+  border-top: 2px solid $primary;
+  padding: 2rem 0;
+  margin-top: 4rem;
+  
+  .footer-brand {
+    font-family: 'Cinzel Decorative', cursive;
+    color: $primary;
+    font-size: 1.5rem;
+  }
+}
+
+// Admin Panel
+.admin-sidebar {
+  background: $secondary;
+  border-right: 1px solid rgba($primary, 0.3);
+  min-height: 100vh;
+  
+  .nav-link {
+    color: $light;
+    padding: 1rem 1.5rem;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    
+    &:hover, &.active {
+      background: rgba($primary, 0.1);
+      border-left-color: $primary;
+      color: $primary;
+    }
+    
+    i {
+      width: 24px;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.admin-header {
+  background: $secondary;
+  border-bottom: 1px solid rgba($primary, 0.3);
+  padding: 1rem 1.5rem;
+}
+
+.stat-card {
+  background: $card-bg;
+  border: 1px solid rgba($primary, 0.3);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 0 20px rgba($primary, 0.2);
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $primary;
+  }
+  
+  .stat-label {
+    color: $gray-300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+  }
+}
+
+// Tables
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: #{$light};
+  --bs-table-border-color: rgba($primary, 0.2);
+  
+  thead {
+    background: rgba($primary, 0.1);
+    
+    th {
+      border-bottom: 2px solid $primary;
+      color: $primary;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+  }
+  
+  tbody tr {
+    &:hover {
+      background: rgba($primary, 0.05);
+    }
+  }
+}
+
+// Alerts
+.alert-success {
+  background: rgba(#28a745, 0.2);
+  border-color: #28a745;
+  color: #a3e4b7;
+}
+
+.alert-danger {
+  background: rgba(#dc3545, 0.2);
+  border-color: #dc3545;
+  color: #f5c6cb;
+}
+
+.alert-warning {
+  background: rgba($primary, 0.2);
+  border-color: $primary;
+  color: $primary-light;
+}
+
+// Radio buttons customizados para votação
+.vote-option {
+  position: relative;
+  cursor: pointer;
+  
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    
+    &:checked + .vote-label {
+      background: rgba($primary, 0.2);
+      border-color: $primary;
+      
+      &::before {
+        background: $primary;
+        border-color: $primary;
+      }
+    }
+  }
+  
+  .vote-label {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid rgba($primary, 0.3);
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+    
+    &:hover {
+      border-color: $primary;
+      background: rgba($primary, 0.1);
+    }
+    
+    &::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba($primary, 0.5);
+      border-radius: 50%;
+      margin-right: 1rem;
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+// Pagination
+.pagination {
+  .page-link {
+    background: $secondary;
+    border-color: rgba($primary, 0.3);
+    color: $light;
+    
+    &:hover {
+      background: rgba($primary, 0.2);
+      border-color: $primary;
+      color: $primary;
+    }
+  }
+  
+  .page-item.active .page-link {
+    background: $primary;
+    border-color: $primary;
+    color: $dark;
+  }
+}
+
+// Trophy animation
+.trophy-icon {
+  color: $primary;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 5px rgba($primary, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba($primary, 0.8));
+  }
+}
+
+// Utilities
+.text-gold {
+  color: $primary !important;
+}
+
+.bg-dark-gradient {
+  background: linear-gradient(135deg, $dark 0%, $secondary 100%);
+}
+
+.border-gold {
+  border-color: $primary !important;
+}
+
+// Votado badge
+.voted-badge {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+  color: $white;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
