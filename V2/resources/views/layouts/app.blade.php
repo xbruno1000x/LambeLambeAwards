@@ -8,10 +8,12 @@
     
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('og_title', '@yield('title', 'Lambe Lambe Awards')')">
-    <meta property="og:description" content="@yield('og_description', 'Vote nos seus favoritos e celebre o melhor do cinema no Lambe Lambe Awards!')">
-    <meta property="og:image" content="@yield('og_image', asset('images/og-preview.png'))">
+    <meta property="og:url" content="https://lambelambeawards.ct.ws">
+    <meta property="og:title" content="Lambe Lambe Awards">
+    <meta property="og:description" content="Vote nos seus favoritos e celebre o melhor do cinema no Lambe Lambe Awards!">
+    <meta property="og:image" content="https://lambelambeawards.ct.ws/images/og-preview.jpg">
+    <meta property="og:image:secure_url" content="https://lambelambeawards.ct.ws/images/og-preview.jpg">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="pt_BR">
@@ -20,7 +22,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="@yield('og_title', '@yield('title', 'Lambe Lambe Awards')')">
+    <meta name="twitter:title" content="@yield('og_title', 'Lambe Lambe Awards')">
     <meta name="twitter:description" content="@yield('og_description', 'Vote nos seus favoritos e celebre o melhor do cinema no Lambe Lambe Awards!')">
     <meta name="twitter:image" content="@yield('og_image', asset('images/og-preview.png'))">
     

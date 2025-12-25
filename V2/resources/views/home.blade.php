@@ -11,10 +11,11 @@
         
         @if($edicaoAtiva)
             <div class="mb-4">
-                <span class="badge bg-primary text-dark fs-5 px-4 py-2">
+                <span class="badge bg-primary text-dark px-3 py-2 edicao-badge">
                     <i class="bi bi-calendar-event me-2"></i>Edição {{ $edicaoAtiva->ano }}
                     @if($edicaoAtiva->titulo)
-                        - {{ $edicaoAtiva->titulo }}
+                        <span class="d-none d-md-inline">-</span>
+                        <span class="d-block d-md-inline mt-1 mt-md-0">{{ $edicaoAtiva->titulo }}</span>
                     @endif
                 </span>
             </div>

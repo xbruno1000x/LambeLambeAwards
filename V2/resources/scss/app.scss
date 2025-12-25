@@ -478,6 +478,51 @@ body {
   }
 }
 
+// Responsive edition badge
+.edicao-badge {
+  font-size: 1.25rem;
+  max-width: 90vw;
+  white-space: normal;
+  line-height: 1.4;
+  
+  @media (max-width: 576px) {
+    font-size: 1rem;
+    padding: 0.5rem 1rem !important;
+    text-align: center;
+  }
+}
+
+// Responsive modal for mobile
+@media (max-width: 576px) {
+  .modal-dialog.modal-lg {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+  
+  .modal-body .list-group-item {
+    padding: 0.75rem !important;
+    
+    .d-flex {
+      flex-wrap: wrap;
+    }
+    
+    .me-3 {
+      margin-right: 0.5rem !important;
+    }
+    
+    .flex-grow-1 {
+      width: 100%;
+      margin-top: 0.5rem;
+      order: 3;
+    }
+    
+    .text-end {
+      min-width: auto !important;
+      margin-left: auto;
+    }
+  }
+}
+
 // Utilities
 .text-gold {
   color: $primary !important;
