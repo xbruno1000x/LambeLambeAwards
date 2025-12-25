@@ -10,7 +10,7 @@
     
     @if($edicaoAtiva && $edicaoAtiva->categorias->count() > 0)
         <div class="text-center mb-4">
-            <span class="badge bg-primary text-dark fs-6 px-3 py-2">
+            <span class="badge bg-primary text-dark fs-6 px-3 py-2 edicao-badge">
                 Edição {{ $edicaoAtiva->ano }}
                 @if($edicaoAtiva->titulo)
                     - {{ $edicaoAtiva->titulo }}
