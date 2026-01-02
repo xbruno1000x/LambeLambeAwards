@@ -23,6 +23,7 @@ Route::post('/votacao', [VotacaoController::class, 'votar'])->name('votacao.vota
 
 // Admin - Login
 Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login'); // Alias para resolver redirect do middleware auth
 Route::post('/admin/login', [AuthController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
@@ -38,6 +39,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     
     // Categorias
     Route::resource('categorias', CategoriaController::class);
+    Route::post('categorias/duplicar', [CategoriaController::class, 'duplicar'])->name('categorias.duplicar');
     
     // Indicados
     Route::resource('indicados', IndicadoController::class);

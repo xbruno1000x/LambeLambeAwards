@@ -72,7 +72,7 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0"><i class="bi bi-award me-2"></i>Categorias</h5>
-        <a href="{{ route('admin.categorias.create') }}" class="btn btn-sm btn-primary">
+        <a href="{{ route('admin.categorias.create', ['edicao_id' => $edicao->id]) }}" class="btn btn-sm btn-primary">
             <i class="bi bi-plus me-1"></i>Nova Categoria
         </a>
     </div>
@@ -80,8 +80,21 @@
         @forelse($edicao->categorias as $categoria)
             <div class="card mb-3 bg-dark">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0 text-gold">{{ $categoria->nome }}</h6>
-                    <span class="badge bg-secondary">{{ $categoria->votos->count() }} votos</span>
+                    <div>
+                        <h6 class="mb-0 text-gold">{{ $categoria->nome }}</h6>
+                        @if($categoria->descricao)
+                            <small class="text-muted">{{ $categoria->descricao }}</small>
+                        @endif
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-secondary">{{ $categoria->votos->count() }} votos</span>
+                        <a href="{{ route('admin.categorias.edit', $categoria) }}" class="btn btn-sm btn-outline-primary" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="{{ route('admin.categorias.show', $categoria) }}" class="btn btn-sm btn-outline-secondary" title="Ver detalhes">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     @if($categoria->indicados->count() > 0)
@@ -106,7 +119,10 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="text-muted mb-0">Nenhum indicado cadastrado</p>
+                        <p class="text-muted mb-0">
+                            Nenhum indicado cadastrado. 
+                            <a href="{{ route('admin.categorias.edit', $categoria) }}" class="text-gold">Adicionar indicados</a>
+                        </p>
                     @endif
                 </div>
             </div>
@@ -114,6 +130,11 @@
             <div class="text-center py-4 text-muted">
                 <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
                 Nenhuma categoria cadastrada para esta edição
+                <div class="mt-2">
+                    <a href="{{ route('admin.categorias.create', ['edicao_id' => $edicao->id]) }}" class="btn btn-primary">
+                        <i class="bi bi-plus me-1"></i>Criar Primeira Categoria
+                    </a>
+                </div>
             </div>
         @endforelse
     </div>
