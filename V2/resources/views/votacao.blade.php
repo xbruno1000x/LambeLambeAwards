@@ -8,19 +8,8 @@
     <div class="container py-5" style="position: relative; z-index: 1;">
         <h2 class="section-title">Votação</h2>
     
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-    
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="bi bi-exclamation-circle me-2"></i>{{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+    <!-- Alert para feedback via AJAX -->
+    <div id="alertContainer"></div>
     
     @if(isset($message))
         <div class="text-center py-5">
@@ -41,58 +30,49 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 @foreach($edicaoAtiva->categorias as $categoria)
-                    <div class="card categoria-card mb-4">
+                    <div class="card categoria-card mb-4" id="categoria-{{ $categoria->id }}">
                         <div class="categoria-header d-flex justify-content-between align-items-center">
                             <h3 class="mb-0"><i class="bi bi-award me-2"></i>{{ $categoria->nome }}</h3>
-                            @if(in_array($categoria->id, $categoriasVotadas ?? []))
-                                <span class="voted-badge">
-                                    <i class="bi bi-check-circle me-1"></i>Votado
-                                </span>
-                            @endif
+                            <span class="voted-badge" id="voted-badge-{{ $categoria->id }}" style="display: none;">
+                                <i class="bi bi-check-circle me-1"></i>Votado
+                            </span>
                         </div>
                         <div class="card-body">
                             @if($categoria->descricao)
                                 <p class="text-muted mb-3">{{ $categoria->descricao }}</p>
                             @endif
                             
-                            @if(in_array($categoria->id, $categoriasVotadas ?? []))
-                                <div class="text-center py-3">
-                                    <i class="bi bi-check-circle-fill text-success fs-3 mb-2 d-block"></i>
-                                    <p class="text-muted mb-0">Você já votou nesta categoria!</p>
-                                </div>
-                            @else
-                                <form action="{{ route('votacao.votar') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="categoria_id" value="{{ $categoria->id }}">
-                                    
-                                    @forelse($categoria->indicados as $indicado)
-                                        <label class="vote-option d-block">
-                                            <input type="radio" name="indicado_id" value="{{ $indicado->id }}" required>
-                                            <span class="vote-label">
-                                                @if($indicado->foto)
-                                                    <img src="{{ Storage::url($indicado->foto) }}" alt="{{ $indicado->nome }}" class="indicado-foto" style="width: 50px; height: 50px;">
+                            <form class="form-votacao" data-categoria-id="{{ $categoria->id }}">
+                                @csrf
+                                <input type="hidden" name="categoria_id" value="{{ $categoria->id }}">
+                                
+                                @forelse($categoria->indicados as $indicado)
+                                    <label class="vote-option d-block">
+                                        <input type="radio" name="indicado_id" value="{{ $indicado->id }}" required>
+                                        <span class="vote-label">
+                                            @if($indicado->foto)
+                                                <img src="{{ Storage::url($indicado->foto) }}" alt="{{ $indicado->nome }}" class="indicado-foto" style="width: 50px; height: 50px;">
+                                            @endif
+                                            <span>
+                                                {{ $indicado->nome }}
+                                                @if($indicado->descricao)
+                                                    <small class="d-block text-muted">{{ $indicado->descricao }}</small>
                                                 @endif
-                                                <span>
-                                                    {{ $indicado->nome }}
-                                                    @if($indicado->descricao)
-                                                        <small class="d-block text-muted">{{ $indicado->descricao }}</small>
-                                                    @endif
-                                                </span>
                                             </span>
-                                        </label>
-                                    @empty
-                                        <div class="text-center py-3 text-muted">
-                                            Nenhum indicado nesta categoria
-                                        </div>
-                                    @endforelse
-                                    
-                                    @if($categoria->indicados->count() > 0)
-                                        <button type="submit" class="btn btn-primary w-100 mt-3">
-                                            <i class="bi bi-check2-circle me-2"></i>Confirmar Voto
-                                        </button>
-                                    @endif
-                                </form>
-                            @endif
+                                        </span>
+                                    </label>
+                                @empty
+                                    <div class="text-center py-3 text-muted">
+                                        Nenhum indicado nesta categoria
+                                    </div>
+                                @endforelse
+                                
+                                @if($categoria->indicados->count() > 0)
+                                    <button type="submit" class="btn btn-primary w-100 mt-3">
+                                        <i class="bi bi-check2-circle me-2"></i>Confirmar Voto
+                                    </button>
+                                @endif
+                            </form>
                         </div>
                     </div>
                 @endforeach
@@ -106,4 +86,96 @@
     @endif
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.form-votacao');
+    
+    forms.forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const categoriaId = this.dataset.categoriaId;
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // Verificar se um indicado foi selecionado
+            const indicadoSelecionado = this.querySelector('input[name="indicado_id"]:checked');
+            if (!indicadoSelecionado) {
+                mostrarAlert('danger', 'Por favor, selecione um indicado antes de votar.');
+                return;
+            }
+            
+            // Desabilitar botão durante o envio
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Enviando...';
+            
+            fetch('{{ route("votacao.votar") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mostrar badge de votado
+                    const badge = document.getElementById('voted-badge-' + categoriaId);
+                    if (badge) {
+                        badge.style.display = 'inline-flex';
+                        // Esconder após 3 segundos
+                        setTimeout(() => {
+                            badge.style.display = 'none';
+                        }, 3000);
+                    }
+                    
+                    // Desmarcar apenas os radio buttons desta categoria
+                    const radios = form.querySelectorAll('input[type="radio"]');
+                    radios.forEach(radio => radio.checked = false);
+                    
+                    // Mostrar mensagem de sucesso
+                    mostrarAlert('success', data.message || 'Voto registrado com sucesso!');
+                } else {
+                    mostrarAlert('danger', data.message || 'Erro ao registrar voto.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                mostrarAlert('danger', 'Erro ao enviar voto. Tente novamente.');
+            })
+            .finally(() => {
+                // Reabilitar botão
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            });
+        });
+    });
+    
+    function mostrarAlert(tipo, mensagem) {
+        const container = document.getElementById('alertContainer');
+        const alertId = 'alert-' + Date.now();
+        
+        const alertHtml = `
+            <div class="alert alert-${tipo} alert-dismissible fade show" role="alert" id="${alertId}">
+                <i class="bi bi-${tipo === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>${mensagem}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
+        
+        container.insertAdjacentHTML('beforeend', alertHtml);
+        
+        // Auto-remover após 4 segundos
+        setTimeout(() => {
+            const alert = document.getElementById(alertId);
+            if (alert) {
+                alert.remove();
+            }
+        }, 4000);
+    }
+});
+</script>
+@endpush
 @endsection

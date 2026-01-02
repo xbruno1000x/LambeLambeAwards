@@ -47,6 +47,9 @@ class VotacaoController extends Controller
         
         // Verificar se a votação está aberta
         if (!$categoria->edicao->votacao_aberta) {
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'A votação está fechada.']);
+            }
             return back()->with('error', 'A votação está fechada.');
         }
 
@@ -64,6 +67,11 @@ class VotacaoController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Voto registrado com sucesso!'])
+                ->cookie('voter_token', $voterToken, 60 * 24 * 365);
+        }
 
         return back()
             ->with('success', 'Voto registrado com sucesso!')
