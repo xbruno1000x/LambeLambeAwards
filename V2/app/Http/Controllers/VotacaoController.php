@@ -22,13 +22,13 @@ class VotacaoController extends Controller
             return view('votacao', ['edicaoAtiva' => $edicaoAtiva, 'message' => 'A votação ainda não está aberta.']);
         }
 
-        // Gerar ou recuperar token do votante
+        // Gerar ou recuperar token do votante (usado apenas para identificação, não para limitar votos)
         $voterToken = $request->cookie('voter_token');
         if (!$voterToken) {
             $voterToken = Str::uuid()->toString();
         }
 
-        // Votação ilimitada - nenhuma categoria marcada como votada
+        // Votação ilimitada - não marcar categorias como votadas
         $categoriasVotadas = [];
 
         return response()
@@ -56,8 +56,7 @@ class VotacaoController extends Controller
             $voterToken = Str::uuid()->toString();
         }
 
-        // Votação ilimitada - permitir múltiplos votos
-        // Registrar voto
+        // Votação ilimitada - sempre criar novo voto
         Voto::create([
             'categoria_id' => $request->categoria_id,
             'indicado_id' => $request->indicado_id,
