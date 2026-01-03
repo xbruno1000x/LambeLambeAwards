@@ -91,7 +91,7 @@
 <script>
     // Definir URLs para o módulo TypeScript
     const VOTACAO_URL = '{{ route("votacao.votar") }}';
-    const CAPTCHA_IMAGE_URL = '{{ asset("captcha.png") }}';
+    const CAPTCHA_IMAGE_URL = '{{ asset("images/captcha.png") }}';
 </script>
 @endpush
 @endsection
