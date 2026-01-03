@@ -89,8 +89,9 @@
 
 @push('scripts')
 <script>
-    // Definir URL para o módulo TypeScript
+    // Definir URLs para o módulo TypeScript
     const VOTACAO_URL = '{{ route("votacao.votar") }}';
+    const CAPTCHA_IMAGE_URL = '{{ asset("captcha.png") }}';
 </script>
 @endpush
 @endsection

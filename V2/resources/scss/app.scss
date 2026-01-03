@@ -234,12 +234,15 @@ body {
     background: linear-gradient(135deg, rgba($primary, 0.2) 0%, transparent 100%);
     padding: 1.5rem;
     border-bottom: 2px solid $primary;
+    position: relative;
+    min-height: 70px;
     
     h3 {
       color: $primary;
       margin: 0;
       font-size: 1.5rem;
       word-break: break-word;
+      padding-right: 100px; // Espaço para o badge
     }
   }
   
@@ -252,9 +255,11 @@ body {
       padding: 1rem;
       flex-wrap: wrap;
       gap: 0.5rem;
+      min-height: 60px;
       
       h3 {
         font-size: 1.2rem;
+        padding-right: 80px;
       }
     }
   }
@@ -599,4 +604,63 @@ body {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  white-space: nowrap;
 }
+
+// Captcha Modal Styles
+.captcha-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.captcha-option {
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba($primary, 0.3);
+  background: $secondary;
+  border-radius: 8px;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  
+  &:hover {
+    border-color: $primary;
+    background: rgba($primary, 0.1);
+    transform: scale(1.05);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  .captcha-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+}
+
