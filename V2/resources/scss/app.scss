@@ -48,6 +48,11 @@ $input-focus-box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
 @import "bootstrap/scss/bootstrap";
 
 // Estilos customizados
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   font-family: 'Cinzel', serif;
   background: linear-gradient(135deg, $dark 0%, $secondary 50%, $dark 100%);
@@ -223,6 +228,7 @@ body {
 // Categoria Card
 .categoria-card {
   margin-bottom: 2rem;
+  overflow: hidden;
   
   .categoria-header {
     background: linear-gradient(135deg, rgba($primary, 0.2) 0%, transparent 100%);
@@ -233,6 +239,23 @@ body {
       color: $primary;
       margin: 0;
       font-size: 1.5rem;
+      word-break: break-word;
+    }
+  }
+  
+  .card-body {
+    overflow: hidden;
+  }
+  
+  @media (max-width: 576px) {
+    .categoria-header {
+      padding: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      
+      h3 {
+        font-size: 1.2rem;
+      }
     }
   }
   
@@ -258,11 +281,14 @@ body {
       object-fit: cover;
       border: 2px solid $primary;
       margin-right: 1rem;
+      flex-shrink: 0;
     }
     
     .indicado-nome {
       flex: 1;
       font-size: 1.1rem;
+      min-width: 0;
+      word-break: break-word;
     }
   }
 }
@@ -401,10 +427,14 @@ body {
 .vote-option {
   position: relative;
   cursor: pointer;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
   
   input[type="radio"] {
     position: absolute;
     opacity: 0;
+    pointer-events: none;
     
     &:checked + .vote-label {
       background: rgba($primary, 0.2);
@@ -419,11 +449,12 @@ body {
   
   .vote-label {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     padding: 1rem;
     border: 2px solid rgba($primary, 0.3);
     transition: all 0.3s ease;
     margin-bottom: 0.5rem;
+    word-break: break-word;
     
     &:hover {
       border-color: $primary;
@@ -434,10 +465,34 @@ body {
       content: '';
       width: 20px;
       height: 20px;
+      min-width: 20px;
+      min-height: 20px;
+      flex-shrink: 0;
       border: 2px solid rgba($primary, 0.5);
       border-radius: 50%;
       margin-right: 1rem;
+      margin-top: 2px;
       transition: all 0.3s ease;
+    }
+    
+    > span {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .indicado-foto {
+      flex-shrink: 0;
+      margin-right: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .vote-label {
+      padding: 0.75rem;
+      
+      &::before {
+        margin-right: 0.75rem;
+      }
     }
   }
 }

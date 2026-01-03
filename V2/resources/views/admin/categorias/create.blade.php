@@ -179,70 +179,12 @@
 
 @push('scripts')
 <script>
-let contadorIndicados = 0;
-
-function adicionarIndicado(nome = '', descricao = '', indicadoExistenteId = '') {
-    contadorIndicados++;
-    const html = `
-        <div class="card bg-dark mb-2 indicado-item" id="indicado-${contadorIndicados}">
-            <div class="card-body py-2 px-3">
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <input type="text" 
-                               class="form-control form-control-sm" 
-                               name="indicados[${contadorIndicados}][nome]" 
-                               value="${nome}"
-                               placeholder="Nome do indicado" 
-                               required>
-                        <input type="hidden" 
-                               name="indicados[${contadorIndicados}][indicado_existente_id]" 
-                               value="${indicadoExistenteId}">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" 
-                               class="form-control form-control-sm" 
-                               name="indicados[${contadorIndicados}][descricao]" 
-                               value="${descricao}"
-                               placeholder="Descrição (opcional)">
-                    </div>
-                    <div class="col-md-2 text-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removerIndicado(${contadorIndicados})">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.getElementById('listaIndicados').insertAdjacentHTML('beforeend', html);
-    document.getElementById('semIndicados').style.display = 'none';
-}
-
-function removerIndicado(id) {
-    const elemento = document.getElementById(`indicado-${id}`);
-    if (elemento) {
-        elemento.remove();
-    }
-    
-    // Mostrar mensagem se não houver indicados
-    if (document.querySelectorAll('.indicado-item').length === 0) {
-        document.getElementById('semIndicados').style.display = 'block';
-    }
-}
-
-document.getElementById('btnAdicionarIndicado').addEventListener('click', function() {
-    adicionarIndicado();
-});
-
-// Adicionar indicado existente ao clicar no botão
-document.querySelectorAll('.btn-indicado-existente').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        const nome = this.dataset.nome;
-        const id = this.dataset.id;
-        adicionarIndicado(nome, '', id);
+    // Inicializar formulário de criação de categoria
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof window.initCategoriaCreate === 'function') {
+            window.initCategoriaCreate();
+        }
     });
-});
 </script>
 @endpush
 @endsection

@@ -167,83 +167,12 @@
 
 @push('scripts')
 <script>
-let contadorIndicados = {{ $categoria->indicados->count() }};
-
-function adicionarIndicado(nome = '', descricao = '') {
-    contadorIndicados++;
-    const html = `
-        <div class="card bg-dark mb-2 indicado-item" id="indicado-novo-${contadorIndicados}">
-            <div class="card-body py-2 px-3">
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <input type="text" 
-                               class="form-control form-control-sm" 
-                               name="indicados[${contadorIndicados}][nome]" 
-                               value="${nome}"
-                               placeholder="Nome do indicado" 
-                               required>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" 
-                               class="form-control form-control-sm" 
-                               name="indicados[${contadorIndicados}][descricao]" 
-                               value="${descricao}"
-                               placeholder="Descrição (opcional)">
-                    </div>
-                    <div class="col-md-2 text-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removerNovoIndicado(${contadorIndicados})">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.getElementById('listaIndicados').insertAdjacentHTML('beforeend', html);
-    document.getElementById('semIndicados').style.display = 'none';
-}
-
-function removerNovoIndicado(id) {
-    const elemento = document.getElementById(`indicado-novo-${id}`);
-    if (elemento) {
-        elemento.remove();
-    }
-    verificarIndicados();
-}
-
-function marcarRemover(id) {
-    const elemento = document.getElementById(`indicado-existente-${id}`);
-    const inputRemover = document.getElementById(`remover-${id}`);
-    
-    if (inputRemover.value === '0') {
-        inputRemover.value = '1';
-        elemento.style.opacity = '0.5';
-        elemento.style.textDecoration = 'line-through';
-    } else {
-        inputRemover.value = '0';
-        elemento.style.opacity = '1';
-        elemento.style.textDecoration = 'none';
-    }
-}
-
-function verificarIndicados() {
-    if (document.querySelectorAll('.indicado-item').length === 0) {
-        document.getElementById('semIndicados').style.display = 'block';
-    }
-}
-
-document.getElementById('btnAdicionarIndicado').addEventListener('click', function() {
-    adicionarIndicado();
-});
-
-// Adicionar indicado existente ao clicar no botão
-document.querySelectorAll('.btn-indicado-existente').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        const nome = this.dataset.nome;
-        adicionarIndicado(nome, '');
+    // Inicializar formulário de edição de categoria
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof window.initCategoriaEdit === 'function') {
+            window.initCategoriaEdit({{ $categoria->indicados->count() }});
+        }
     });
-});
 </script>
 @endpush
 @endsection
