@@ -5,7 +5,7 @@
 @section('content')
 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-4">
     <h5 class="mb-0">Histórico de Votos</h5>
-    <a href="{{ route('admin.votos.resultados') }}" class="btn btn-primary w-100 w-sm-auto">
+    <a href="{{ route('admin.votos.resultados') }}" class="btn btn-primary">
         <i class="bi bi-bar-chart me-1"></i>Ver Resultados
     </a>
 </div>
@@ -41,41 +41,39 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th>Data/Hora</th>
-                        <th>Categoria</th>
-                        <th>Indicado</th>
-                        <th class="d-none d-md-table-cell">IP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($votos as $voto)
-                        <tr>
-                            <td class="text-nowrap">{{ $voto->created_at->format('d/m/Y H:i') }}</td>
-                            <td class="text-gold">{{ $voto->categoria->nome }}</td>
-                            <td>{{ $voto->indicado->nome }}</td>
-                            <td class="d-none d-md-table-cell"><small class="text-muted">{{ $voto->ip_address }}</small></td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="text-center py-4 text-muted">
-                                Nenhum voto registrado
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+<!-- Lista de Votos em Cards -->
+<div class="row g-3">
+    @forelse($votos as $voto)
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="badge bg-primary text-dark">{{ $voto->categoria->nome }}</span>
+                        <small class="text-muted">{{ $voto->created_at->format('d/m/Y H:i') }}</small>
+                    </div>
+                    <h6 class="mb-2">{{ $voto->indicado->nome }}</h6>
+                    <small class="text-muted d-block">
+                        <i class="bi bi-geo-alt me-1"></i>{{ $voto->ip_address }}
+                    </small>
+                </div>
+            </div>
         </div>
-    </div>
-    @if($votos->hasPages())
-        <div class="card-footer">
-            {{ $votos->withQueryString()->links() }}
+    @empty
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center py-5 text-muted">
+                    <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                    Nenhum voto registrado
+                </div>
+            </div>
         </div>
-    @endif
+    @endforelse
 </div>
+
+@if($votos->hasPages())
+    <div class="d-flex justify-content-center mt-4">
+        {{ $votos->withQueryString()->links() }}
+    </div>
+@endif
+@endsection
 @endsection
