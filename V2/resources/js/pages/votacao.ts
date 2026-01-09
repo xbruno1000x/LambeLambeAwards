@@ -243,8 +243,7 @@ export function initVotacao(votacaoUrl: string): void {
                     const radios = form.querySelectorAll<HTMLInputElement>('input[type="radio"]');
                     radios.forEach(radio => radio.checked = false);
                     
-                    // Mostrar mensagem de sucesso
-                    mostrarAlert('success', data.message || 'Voto registrado com sucesso!');
+                    // Feedback silencioso - apenas badge (sem alert para não atrapalhar a página)
                 } else {
                     mostrarAlert('danger', data.message || 'Erro ao registrar voto.');
                 }

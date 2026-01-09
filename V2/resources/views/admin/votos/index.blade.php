@@ -3,9 +3,9 @@
 @section('page-title', 'Votos')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-4">
     <h5 class="mb-0">Histórico de Votos</h5>
-    <a href="{{ route('admin.votos.resultados') }}" class="btn btn-primary">
+    <a href="{{ route('admin.votos.resultados') }}" class="btn btn-primary w-100 w-sm-auto">
         <i class="bi bi-bar-chart me-1"></i>Ver Resultados
     </a>
 </div>
@@ -13,7 +13,7 @@
 <div class="card mb-4">
     <div class="card-body">
         <form action="{{ route('admin.votos.index') }}" method="GET" class="row g-3">
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <label for="edicao_id" class="form-label">Filtrar por Edição</label>
                 <select class="form-select" id="edicao_id" name="edicao_id" onchange="this.form.submit()">
                     <option value="">Todas as edições</option>
@@ -25,7 +25,7 @@
                 </select>
             </div>
             @if($categorias->count() > 0)
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <label for="categoria_id" class="form-label">Filtrar por Categoria</label>
                     <select class="form-select" id="categoria_id" name="categoria_id" onchange="this.form.submit()">
                         <option value="">Todas as categorias</option>
@@ -50,16 +50,16 @@
                         <th>Data/Hora</th>
                         <th>Categoria</th>
                         <th>Indicado</th>
-                        <th>IP</th>
+                        <th class="d-none d-md-table-cell">IP</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($votos as $voto)
                         <tr>
-                            <td>{{ $voto->created_at->format('d/m/Y H:i:s') }}</td>
+                            <td class="text-nowrap">{{ $voto->created_at->format('d/m/Y H:i') }}</td>
                             <td class="text-gold">{{ $voto->categoria->nome }}</td>
                             <td>{{ $voto->indicado->nome }}</td>
-                            <td><small class="text-muted">{{ $voto->ip_address }}</small></td>
+                            <td class="d-none d-md-table-cell"><small class="text-muted">{{ $voto->ip_address }}</small></td>
                         </tr>
                     @empty
                         <tr>

@@ -10,7 +10,7 @@
 <div class="card mb-4">
     <div class="card-body">
         <form action="{{ route('admin.votos.resultados') }}" method="GET" class="row g-3 align-items-end">
-            <div class="col-md-4">
+            <div class="col-12 col-md-6 col-lg-4">
                 <label for="edicao_id" class="form-label">Selecionar Edição</label>
                 <select class="form-select" id="edicao_id" name="edicao_id" onchange="this.form.submit()">
                     @foreach($edicoes as $e)
@@ -26,20 +26,20 @@
 </div>
 
 @if($edicao)
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
+    <div class="row g-3 g-md-4 mb-4">
+        <div class="col-4 col-md-4">
             <div class="stat-card">
                 <div class="stat-number">{{ count($resultados) }}</div>
                 <div class="stat-label">Categorias</div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-4 col-md-4">
             <div class="stat-card">
                 <div class="stat-number">{{ collect($resultados)->sum('total_votos') }}</div>
-                <div class="stat-label">Total de Votos</div>
+                <div class="stat-label">Total Votos</div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-4 col-md-4">
             <div class="stat-card">
                 <div class="stat-number">
                     @if($edicao->votacao_aberta)
@@ -48,28 +48,28 @@
                         <span class="badge bg-secondary">Fechada</span>
                     @endif
                 </div>
-                <div class="stat-label">Status da Votação</div>
+                <div class="stat-label">Status</div>
             </div>
         </div>
     </div>
 
     @forelse($resultados as $resultado)
         <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 text-gold">
+            <div class="card-header d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+                <h5 class="mb-0 text-gold fs-6 fs-md-5">
                     <i class="bi bi-award me-2"></i>{{ $resultado['categoria']->nome }}
                 </h5>
                 <span class="badge bg-secondary">{{ $resultado['total_votos'] }} votos</span>
             </div>
-            <div class="card-body">
+            <div class="card-body p-2 p-md-3">
                 @if($resultado['indicados']->count() > 0)
                     @php
                         $maxVotos = $resultado['indicados']->max('votos_count') ?: 1;
                     @endphp
                     @foreach($resultado['indicados'] as $index => $indicado)
-                        <div class="d-flex align-items-center mb-3 p-3 rounded {{ $index === 0 && $indicado->votos_count > 0 ? 'border border-gold' : '' }}" 
+                        <div class="d-flex align-items-center mb-2 mb-md-3 p-2 p-md-3 rounded {{ $index === 0 && $indicado->votos_count > 0 ? 'border border-gold' : '' }}" 
                              style="background: rgba(212, 175, 55, {{ max(0.02, 0.15 - ($index * 0.03)) }});">
-                            <span class="me-3 fs-4 fw-bold {{ $index === 0 && $indicado->votos_count > 0 ? 'text-gold' : 'text-muted' }}" style="width: 35px;">
+                            <span class="me-2 me-md-3 fs-5 fs-md-4 fw-bold {{ $index === 0 && $indicado->votos_count > 0 ? 'text-gold' : 'text-muted' }}" style="min-width: 30px;">
                                 @if($index === 0 && $indicado->votos_count > 0)
                                     <i class="bi bi-trophy-fill"></i>
                                 @else
@@ -78,18 +78,18 @@
                             </span>
                             
                             @if($indicado->foto)
-                                <img src="{{ Storage::url($indicado->foto) }}" alt="{{ $indicado->nome }}" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                <img src="{{ Storage::url($indicado->foto) }}" alt="{{ $indicado->nome }}" class="rounded-circle me-2 me-md-3 d-none d-sm-block" style="width: 40px; height: 40px; object-fit: cover;">
                             @else
-                                <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                <div class="rounded-circle bg-secondary d-none d-sm-flex align-items-center justify-content-center me-2 me-md-3" style="width: 40px; height: 40px;">
                                     <i class="bi bi-person-fill text-gold"></i>
                                 </div>
                             @endif
                             
-                            <div class="flex-grow-1">
-                                <div class="fw-bold {{ $index === 0 && $indicado->votos_count > 0 ? 'text-gold' : '' }}">
+                            <div class="flex-grow-1 min-width-0">
+                                <div class="fw-bold {{ $index === 0 && $indicado->votos_count > 0 ? 'text-gold' : '' }} text-truncate" style="font-size: 0.9rem;">
                                     {{ $indicado->nome }}
                                 </div>
-                                <div class="progress mt-2" style="height: 8px; background: rgba(255,255,255,0.1);">
+                                <div class="progress mt-1 mt-md-2" style="height: 6px; background: rgba(255,255,255,0.1);">
                                     <div class="progress-bar" 
                                          role="progressbar" 
                                          style="width: {{ $maxVotos > 0 ? ($indicado->votos_count / $maxVotos) * 100 : 0 }}%; background: linear-gradient(90deg, #D4AF37, #FFD700);">
@@ -97,9 +97,9 @@
                                 </div>
                             </div>
                             
-                            <div class="ms-3 text-end">
-                                <span class="fs-4 fw-bold {{ $index === 0 && $indicado->votos_count > 0 ? 'text-gold' : '' }}">{{ $indicado->votos_count }}</span>
-                                <small class="d-block text-muted">votos</small>
+                            <div class="ms-2 ms-md-3 text-end flex-shrink-0">
+                                <span class="fs-5 fs-md-4 fw-bold {{ $index === 0 && $indicado->votos_count > 0 ? 'text-gold' : '' }}">{{ $indicado->votos_count }}</span>
+                                <small class="d-none d-sm-block text-muted">votos</small>
                             </div>
                         </div>
                     @endforeach
