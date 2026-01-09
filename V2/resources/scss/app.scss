@@ -438,6 +438,8 @@ body {
   flex: 1;
   min-height: 100vh;
   background: $dark;
+  overflow-x: hidden;
+  max-width: 100%;
   
   @media (min-width: 992px) {
     margin-left: 250px;
@@ -445,6 +447,7 @@ body {
   
   @media (max-width: 991.98px) {
     padding-top: 56px; // Space for mobile header
+    width: 100vw;
   }
 }
 
@@ -460,6 +463,7 @@ body {
   padding: 1.5rem;
   text-align: center;
   transition: all 0.3s ease;
+  overflow: hidden;
   
   &:hover {
     border-color: $primary;
@@ -470,9 +474,10 @@ body {
     font-size: 2.5rem;
     font-weight: 700;
     color: $primary;
+    word-break: break-word;
     
     @media (max-width: 576px) {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
     }
   }
   
@@ -483,12 +488,13 @@ body {
     font-size: 0.85rem;
     
     @media (max-width: 576px) {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.5px;
     }
   }
   
   @media (max-width: 576px) {
-    padding: 1rem;
+    padding: 0.75rem 0.5rem;
   }
 }
 
