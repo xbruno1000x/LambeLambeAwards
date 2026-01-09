@@ -20,7 +20,7 @@
     <div class="admin-wrapper">
         <!-- Mobile Header -->
         <header class="admin-mobile-header d-lg-none">
-            <button class="btn btn-link text-gold p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+            <button class="btn btn-link text-gold p-0" type="button" id="sidebarToggle">
                 <i class="bi bi-list fs-2"></i>
             </button>
             <span class="text-gold fw-bold">
@@ -31,16 +31,19 @@
             </span>
         </header>
 
-        <!-- Sidebar - Offcanvas for mobile, fixed for desktop -->
-        <aside class="admin-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
-            <div class="offcanvas-header d-lg-none border-bottom" style="border-color: rgba(212, 175, 55, 0.3) !important;">
-                <h5 class="offcanvas-title text-gold" id="adminSidebarLabel">
+        <!-- Sidebar Overlay (mobile) -->
+        <div class="sidebar-overlay d-lg-none" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header d-lg-none">
+                <h5 class="text-gold mb-0">
                     <i class="bi bi-trophy-fill me-2"></i>Admin
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar" aria-label="Fechar"></button>
+                <button type="button" class="btn-close btn-close-white" id="sidebarClose" aria-label="Fechar"></button>
             </div>
             
-            <div class="offcanvas-body p-0">
+            <div class="sidebar-content">
                 <div class="p-4 border-bottom border-gold d-none d-lg-block" style="border-color: rgba(212, 175, 55, 0.3) !important;">
                     <a href="{{ route('admin.dashboard') }}" class="text-decoration-none">
                         <h5 class="text-gold mb-0">
@@ -50,22 +53,22 @@
                 </div>
                 
                 <nav class="mt-3 admin-nav">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="bi bi-speedometer2"></i> Dashboard
                     </a>
-                    <a href="{{ route('admin.edicoes.index') }}" class="nav-link {{ request()->routeIs('admin.edicoes.*') ? 'active' : '' }}" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar">
+                    <a href="{{ route('admin.edicoes.index') }}" class="nav-link {{ request()->routeIs('admin.edicoes.*') ? 'active' : '' }}">
                         <i class="bi bi-calendar-event"></i> Edições
                     </a>
-                    <a href="{{ route('admin.categorias.index') }}" class="nav-link {{ request()->routeIs('admin.categorias.*') ? 'active' : '' }}" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar">
+                    <a href="{{ route('admin.categorias.index') }}" class="nav-link {{ request()->routeIs('admin.categorias.*') ? 'active' : '' }}">
                         <i class="bi bi-award"></i> Categorias
                     </a>
-                    <a href="{{ route('admin.indicados.index') }}" class="nav-link {{ request()->routeIs('admin.indicados.*') ? 'active' : '' }}" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar">
+                    <a href="{{ route('admin.indicados.index') }}" class="nav-link {{ request()->routeIs('admin.indicados.*') ? 'active' : '' }}">
                         <i class="bi bi-people"></i> Indicados
                     </a>
-                    <a href="{{ route('admin.votos.index') }}" class="nav-link {{ request()->routeIs('admin.votos.index') ? 'active' : '' }}" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar">
+                    <a href="{{ route('admin.votos.index') }}" class="nav-link {{ request()->routeIs('admin.votos.index') ? 'active' : '' }}">
                         <i class="bi bi-check2-square"></i> Votos
                     </a>
-                    <a href="{{ route('admin.votos.resultados') }}" class="nav-link {{ request()->routeIs('admin.votos.resultados') ? 'active' : '' }}" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar">
+                    <a href="{{ route('admin.votos.resultados') }}" class="nav-link {{ request()->routeIs('admin.votos.resultados') ? 'active' : '' }}">
                         <i class="bi bi-bar-chart"></i> Resultados
                     </a>
                     
@@ -133,6 +136,40 @@
             </div>
         </main>
     </div>
+    
+    <script>
+        // Mobile sidebar toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            const closeBtn = document.getElementById('sidebarClose');
+            
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+            
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', openSidebar);
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeSidebar);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', closeSidebar);
+            }
+        });
+    </script>
     
     @stack('scripts')
 </body>
