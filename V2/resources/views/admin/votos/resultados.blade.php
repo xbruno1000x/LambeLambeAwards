@@ -25,32 +25,32 @@
     </div>
 
     @if($edicao)
-        <div class="row g-2 mb-3">
-            <div class="col-4">
-                <div class="stat-card p-2">
-                    <div class="stat-number" style="font-size: 1.25rem;">{{ count($resultados) }}</div>
-                    <div class="stat-label" style="font-size: 0.65rem;">Categorias</div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="stat-card p-2">
-                    <div class="stat-number" style="font-size: 1.25rem;">{{ collect($resultados)->sum('total_votos') }}</div>
-                    <div class="stat-label" style="font-size: 0.65rem;">Total Votos</div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="stat-card p-2">
-                    <div class="stat-number">
-                        @if($edicao->votacao_aberta)
-                            <span class="badge bg-success" style="font-size: 0.65rem;">Aberta</span>
-                        @else
-                            <span class="badge bg-secondary" style="font-size: 0.65rem;">Fechada</span>
-                        @endif
+            <div class="row g-2 mb-3">
+                <div class="col-4 d-flex">
+                    <div class="stat-card p-2 w-100 h-100">
+                        <div class="stat-number" style="font-size: 1.25rem;">{{ count($resultados) }}</div>
+                        <div class="stat-label" style="font-size: 0.65rem;">Categorias</div>
                     </div>
-                    <div class="stat-label" style="font-size: 0.65rem;">Status</div>
+                </div>
+                <div class="col-4 d-flex">
+                    <div class="stat-card p-2 w-100 h-100">
+                        <div class="stat-number" style="font-size: 1.25rem;">{{ collect($resultados)->sum('total_votos') }}</div>
+                        <div class="stat-label" style="font-size: 0.65rem;">Total Votos</div>
+                    </div>
+                </div>
+                <div class="col-4 d-flex">
+                    <div class="stat-card p-2 w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+                        <div class="stat-number">
+                            @if($edicao->votacao_aberta)
+                                <span class="badge bg-success" style="font-size: 0.65rem;">Aberta</span>
+                            @else
+                                <span class="badge bg-secondary" style="font-size: 0.65rem;">Fechada</span>
+                            @endif
+                        </div>
+                        <div class="stat-label" style="font-size: 0.65rem;">Status</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
         @forelse($resultados as $resultado)
             <div class="card mb-3">
