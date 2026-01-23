@@ -2,7 +2,8 @@
 DirectoryIndex public/index.php index.php index.html
 
 <IfModule mod_rewrite.c>
-    Options +FollowSymLinks
+    # Usa SymLinksIfOwnerMatch em vez de FollowSymLinks (mais compatível com hospedagem compartilhada)
+    Options +SymLinksIfOwnerMatch
     RewriteEngine On
     RewriteBase /
 
@@ -19,3 +20,18 @@ DirectoryIndex public/index.php index.php index.html
     # Tudo o resto: encaminha internamente para public/index.php
     RewriteRule ^(.*)$ public/index.php [L,QSA]
 </IfModule>
+
+# Desabilita listagem de diretórios
+Options -Indexes
+
+# Proteção contra acesso a arquivos sensíveis
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloqueia acesso a arquivos de configuração
+<FilesMatch "\.(env|log|md|gitignore|yml|yaml|json|lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
